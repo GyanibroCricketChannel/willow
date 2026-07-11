@@ -1,126 +1,176 @@
-<!DOCTYPE html>  
-<html>  
-<head>  
-  <meta charset="UTF-8">  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-  <title>Gyani_Bro</title>     
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/shaka-player.ui.min.js" crossorigin="anonymous"></script>  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/controls.min.css" crossorigin="anonymous">  
-  <style>  
-   * { margin: 0; padding: 0; box-sizing: border-box; }  
-    html, body {  
-      background: #000;  
-      height: 100vh;  
-      width: 100vw;  
-      overflow: hidden;  
-      font-family: system-ui, -apple-system, sans-serif;  
-    }  
-    .shaka-video-container {  
-      position: absolute;  
-      inset: 0;  
-      width: 100%;  
-      height: 100%;  
-    }  
-    video {  
-      width: 100%;  
-      height: 100%;  
-      background: #000;  
-      object-fit: contain;  
-    }  
-    .shaka-spinner-container,  
-    .shaka-spinner,  
-    .shaka-spinner-svg {  
-      display: none !important;  
-      visibility: hidden !important;  
-      opacity: 0 !important;  
-    }  
-  </style>  
-</head>  
-<body>  
-  <div class="shaka-video-container" data-shaka-player>  
-    <video autoplay playsinline preload="metadata" poster="https://i.ibb.co/pBzSKg3z/1586162092-020d20c6f8b5fd388ed06ba6929021b826007c55c5fa007f23d6fbac44c2e489-d.webp"></video>  
-  </div>  
-  
-  <script>  
-    document.addEventListener('DOMContentLoaded', async () => {  
-      shaka.polyfill.installAll();  
-  
-      if (!shaka.Player.isBrowserSupported()) {  
-        console.error('Browser not supported');  
-        return;  
-      }  
-  
-      const video = document.querySelector('video');  
-      const player = new shaka.Player();  
-      await player.attach(video);  
-  
-      const container = document.querySelector('.shaka-video-container');  
-      const ui = new shaka.ui.Overlay(player, container, video);  
-  
-      ui.configure({  
-        controlPanelElements: [  
-          'play_pause', 'time_and_duration', 'mute', 'volume',  
-          'spacer', 'language', 'captions', 'picture_in_picture',  
-          'quality', 'fullscreen'  
-        ],  
-        volumeBarColors: {  
-          base: 'rgba(255, 192, 203, 0.3)',  
-          level: 'rgb(255, 105, 180)'  
-        },  
-        seekBarColors: {  
-          base: 'rgba(255, 255, 0, 0.3)',  
-          buffered: 'rgba(255, 255, 0, 0.6)',  
-          played: 'rgb(255, 255, 0)'  
-        }  
-      });  
-  
-      // ✅ Your DRM Key + MPD URL  
-      let drmConfig = {  
-        clearKeys: {  
-          "708a98b352bd4418a73a028edd84da8f": "b1fa5c2bca4c4b57b924b748564532cb"  
-        }  
-      };  
-  
-      let streamUrl = "https://abfjk4haaaaaaaamkitc5445rybm6.bia-cf.live.pv-cdn.net/iad-nitro/live/clients/dash/enc/il6abt14ce/out/v1/7973ad2adc6341dcb785e9960bdf1c0c/cenc.mpd";  
-  
-      player.configure({  
-        drm: drmConfig,  
-        streaming: {  
-          lowLatencyMode: true,  
-          bufferingGoal: 15,  
-          rebufferingGoal: 2,  
-          bufferBehind: 15,  
-          retryParameters: {  
-            timeout: 10000,  
-            maxAttempts: 5,  
-            baseDelay: 300,  
-            backoffFactor: 1.2  
-          },  
-          segmentRequestTimeout: 8000,  
-          segmentPrefetchLimit: 2,  
-          useNativeHlsOnSafari: true  
-        },  
-        manifest: {  
-          retryParameters: {  
-            timeout: 8000,  
-            maxAttempts: 3  
-          }  
-        }  
-      });  
-  
-      player.addEventListener('error', (event) => {  
-        console.error('Shaka Player Error:', event.detail);  
-      });  
-  
-      try {  
-        await player.load(streamUrl);  
-        console.log("Stream loaded successfully");  
-      } catch (error) {  
-        console.error('Load error:', error);  
-      }  
-    }); 
-   !0 == confirm("Join our Telegram Group to get All Updates @WatchAddLive") && window.open("https://telegram.me/@WatchAddaLive", "_blank");
-   
-  </script>  
-</body>  
-</html>
+<!DOCTYPE html><html><head><script>document.write(decodeURIComponent(escape(atob("PGh0bWw+CjxtZXRhIGNoYXJzZXQ9IlVURi04Ij4KPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiPgo8bWV0YSBuYW1lPSJyZWZlcnJlciIgY29udGVudD0ibm8tcmVmZXJyZXIiPgo8dGl0bGU+VEdfQFR1c2hhcl9TdHJlYW08L3RpdGxlPgo8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG5qcy5jbG91ZGZsYXJlLmNvbS9hamF4L2xpYnMvc2hha2EtcGxheWVyLzQuNy4xL3NoYWthLXBsYXllci51aS5taW4uanMiIGNyb3Nzb3JpZ2luPSJhbm9ueW1vdXMiPjwvc2NyaXB0Pgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzL3NoYWthLXBsYXllci80LjcuMS9jb250cm9scy5taW4uY3NzIiBjcm9zc29yaWdpbj0iYW5vbnltb3VzIj4KCjxzdHlsZT4KICAgIGJvZHkgewogICAgICAgIGJhY2tncm91bmQtY29sb3I6ICMwMDA7CiAgICAgICAgbWFyZ2luOiAwOwogICAgfQoKICAgIC8qIENvbnRhaW5lciBmb3IgdmlkZW8gYW5kIGxvZ28gKi8KICAgIC52aWRlby1jb250YWluZXIgewogICAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTsKICAgICAgICB3aWR0aDogMTAwJTsKICAgICAgICBoZWlnaHQ6IDEwMCU7CiAgICAgICAgYmFja2dyb3VuZC1jb2xvcjogYmxhY2s7CiAgICB9CgogICAgLyogU3R5bGUgZm9yIHRoZSBsb2dvICovCiAgICAubG9nbyB7CiAgICAgICAgcG9zaXRpb246IGFic29sdXRlOwogICAgICAgIHRvcDogMTBweDsgLyogQWRqdXN0IHZlcnRpY2FsIHBvc2l0aW9uICovCiAgICAgICAgbGVmdDogMTBweDsgLyogQWRqdXN0IGhvcml6b250YWwgcG9zaXRpb24gKi8KICAgICAgICB6LWluZGV4OiAxOyAvKiBFbnN1cmUgdGhlIGxvZ28gYXBwZWFycyBhYm92ZSB0aGUgdmlkZW8gKi8KICAgICAgICBtYXgtd2lkdGg6IDEyMHB4OyAvKiBTZXQgbWF4aW11bSB3aWR0aCBmb3IgdGhlIGxvZ28gKi8KICAgICAgICBtYXgtaGVpZ2h0OiAxMjBweDsgLyogU2V0IG1heGltdW0gaGVpZ2h0IGZvciB0aGUgbG9nbyAqLwogICAgICAgIHBvaW50ZXItZXZlbnRzOiBub25lOyAvKiBQcmV2ZW50IGludGVyZmVyZW5jZSB3aXRoIHZpZGVvIGNvbnRyb2xzICovCiAgICB9CgogICAgLnNoYWthLXNwaW5uZXItY29udGFpbmVyIHsKICAgICAgICBkaXNwbGF5OiBub25lOwogICAgfQoKICAgIC51YyB7CiAgICAgICAgcG9pbnRlci1ldmVudHM6IG5vbmU7CiAgICB9Cjwvc3R5bGU+CjwvaGVhZD4KCjxib2R5PgogICAgCiAgICA8ZGl2IGNsYXNzPSJ2aWRlby1jb250YWluZXIiPgoKICAgICAgICAKICAgICAgICA8ZGl2IGRhdGEtc2hha2EtcGxheWVyLWNvbnRhaW5lciBzdHlsZT0icG9zaXRpb246IGFic29sdXRlOyB0b3A6IDA7IGxlZnQ6IDA7IHdpZHRoOiAxMDAlOyBoZWlnaHQ6IDEwMCU7Ij4KICAgICAgICAgICAgPHZpZGVvIGF1dG9wbGF5IG11dGVkIGRhdGEtc2hha2EtcGxheWVyIGlkPSJ2aWRlbyIgcG9zdGVyPSJodHRwczovL2kuaWJiLmNvLzlyb3dzZXItT25seS0xLmpwZyIgc3R5bGU9IndpZHRoOjEwMCU7IGhlaWdodDoxMDAlOyI+PC92aWRlbz4KICAgICAgICA8L2Rpdj4KICAgIDwvZGl2PgoKICAgIDxzY3JpcHQ+CiAgICAvLyBSZXN0cmljdCBpZnJhbWUgZW1iZWRkaW5nCiAgICBpZiAod2luZG93LnRvcCAhPT0gd2luZG93LnNlbGYpIHsKICAgICAgICB3aW5kb3cuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKCkgewogICAgICAgICAgICAvLyBDbGVhciB0aGUgZXhpc3RpbmcgY29udGVudAogICAgICAgICAgICBkb2N1bWVudC5ib2R5LmlubmVySFRNTCA9ICcnOwoKICAgICAgICAgICAgLy8gQWRkIGN1c3RvbSBtZXNzYWdlCiAgICAgICAgICAgIGNvbnN0IG1lc3NhZ2VEaXYgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgICAgICAgICAgbWVzc2FnZURpdi5pZCA9ICdtZXNzYWdlJzsKICAgICAgICAgICAgbWVzc2FnZURpdi50ZXh0Q29udGVudCA9ICdBYiB0byBjb3B5IG1hdCBrYXIgY2h1dGl5ZSBCeSBAVHVzaGFyX1N0cmVhbSc7CgogICAgICAgICAgICAvLyBTdHlsZSB0aGUgbWVzc2FnZQogICAgICAgICAgICBtZXNzYWdlRGl2LnN0eWxlLmNvbG9yID0gJyNmZmYnOwogICAgICAgICAgICBtZXNzYWdlRGl2LnN0eWxlLmJhY2tncm91bmRDb2xvciA9ICcjMDAwJzsKICAgICAgICAgICAgbWVzc2FnZURpdi5zdHlsZS5wb3NpdGlvbiA9ICdmaXhlZCc7CiAgICAgICAgICAgIG1lc3NhZ2VEaXYuc3R5bGUudG9wID0gJzUwJSc7CiAgICAgICAgICAgIG1lc3NhZ2VEaXYuc3R5bGUubGVmdCA9ICc1MCUnOwogICAgICAgICAgICBtZXNzYWdlRGl2LnN0eWxlLnRyYW5zZm9ybSA9ICd0cmFuc2xhdGUoLTUwJSwgLTUwJSknOwogICAgICAgICAgICBtZXNzYWdlRGl2LnN0eWxlLnBhZGRpbmcgPSAnMjBweCc7CiAgICAgICAgICAgIG1lc3NhZ2VEaXYuc3R5bGUuYm9yZGVyUmFkaXVzID0gJzEwcHgnOwogICAgICAgICAgICBtZXNzYWdlRGl2LnN0eWxlLnRleHRBbGlnbiA9ICdjZW50ZXInOwogICAgICAgICAgICBtZXNzYWdlRGl2LnN0eWxlLmZvbnRGYW1pbHkgPSAnQXJpYWwsIHNhbnMtc2VyaWYnOwogICAgICAgICAgICBtZXNzYWdlRGl2LnN0eWxlLmZvbnRTaXplID0gJzIwcHgnOwoKICAgICAgICAgICAgLy8gQXBwZW5kIHRoZSBtZXNzYWdlIHRvIHRoZSBib2R5CiAgICAgICAgICAgIGRvY3VtZW50LmJvZHkuYXBwZW5kQ2hpbGQobWVzc2FnZURpdik7CiAgICAgICAgfSk7CiAgICB9CgogICAgLy8gRnVuY3Rpb24gdG8gZmV0Y2ggY29uZmlndXJhdGlvbiBmcm9tIEpTT04KICAgIGFzeW5jIGZ1bmN0aW9uIGZldGNoQ29uZmlnKCkgewogICAgICAgIHRyeSB7CiAgICAgICAgICAgIC8vIENoYW5nZSB0aGlzIFVSTCB0byB5b3VyIEpTT04gZmlsZSBsb2NhdGlvbgogICAgICAgICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKCdodHRwczovL21hdGNoZXNsaW5rei5wYWdlcy5kZXYva2F5by5qc29uJyk7CiAgICAgICAgICAgIGlmICghcmVzcG9uc2Uub2spIHsKICAgICAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcihgSFRUUCBlcnJvciEgc3RhdHVzOiAke3Jlc3BvbnNlLnN0YXR1c31gKTsKICAgICAgICAgICAgfQogICAgICAgICAgICBjb25zdCBjb25maWcgPSBhd2FpdCByZXNwb25zZS5qc29uKCk7CiAgICAgICAgICAgIHJldHVybiBjb25maWc7CiAgICAgICAgfSBjYXRjaCAoZXJyb3IpIHsKICAgICAgICAgICAgY29uc29sZS5lcnJvcignRXJyb3IgZmV0Y2hpbmcgY29uZmlnOicsIGVycm9yKTsKICAgICAgICAgICAgLy8gRmFsbGJhY2sgdG8gZGVmYXVsdCBjb25maWd1cmF0aW9uIGlmIGZldGNoIGZhaWxzCiAgICAgICAgICAgIHJldHVybiB7CiAgICAgICAgICAgICAgICBtcGQ6ICJodHRwczovL2RpY2UtbGl2ZS1vYy5ha2FtYWl6ZWQubmV0L2hkbnRsPWV4cD0xNzc4ODI2Mjg3fmFjbD0lMmYqfmlkPTNiYThiODk4LWQxMTQtNDVmNC05ZTJlLThlNzU1MWZjZDQ5M35kYXRhPWhkbnRsLGFYQTlNVEE0TGpFNE1TNDBMalk1Sm1WNGNEMHhOemM0TnpNNU9URTJKbVZwWkQwNU16WTBNVGdtYjJsa1BURTFOQ1owZVhCbFBWWlBSQ1oxYVdROWVGSlNjVzg1ZkdKallXVmhOMk5tTFdNek16Y3ROREF6T1MwNE1UVTRMVE5qTVdObE5EbGxOekk1TXlaamFXUTlaR05sTG1acGMyWmxaQ1p3ZEQxdWRXeHN+aG1hYz01M2M4ODg4MDJjODMxNDBkYjFkMDE3ODY5MjgxZmQyMTZlMGE3ZWMyNmE2ZmM0Y2FiOTMzOGRmMWZkN2RhMGY5L2Rhc2gvbGl2ZS8yMDkzNzE1LzIxOTAyNy0zMjEwMjgvbWFuaWZlc3QtZC5tcGQiLAogICAgICAgICAgICAgICAga2V5czogewogICAgICAgICAgICAgICAgICAgICc3MDhhOThiMzUyYmQ0NDE4YTczYTAyOGVkZDg0ZGE4Zic6ICJiMWZhNWMyYmNhNGM0YjU3YjkyNGI3NDg1NjQ1MzJjYiIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfTsKICAgICAgICB9CiAgICB9CgogICAgYXN5bmMgZnVuY3Rpb24gaW5pdCgpIHsKICAgICAgICBjb25zdCB2aWRlbyA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJ2aWRlbyIpOwogICAgICAgIGNvbnN0IHVpID0gdmlkZW8udWk7CiAgICAgICAgY29uc3QgY29udHJvbHMgPSB1aS5nZXRDb250cm9scygpOwogICAgICAgIGNvbnN0IHBsYXllciA9IGNvbnRyb2xzLmdldFBsYXllcigpOwoKICAgICAgICAvLyBGZXRjaCBjb25maWd1cmF0aW9uIGZyb20gSlNPTgogICAgICAgIGNvbnN0IGNvbmZpZyA9IGF3YWl0IGZldGNoQ29uZmlnKCk7CgogICAgICAgIC8vIENvbmZpZ3VyZSBEUk0gd2l0aCBrZXlzIGZyb20gSlNPTgogICAgICAgIHBsYXllci5jb25maWd1cmUoewogICAgICAgICAgICBkcm06IHsKICAgICAgICAgICAgICAgIGNsZWFyS2V5czogY29uZmlnLmtleXMKICAgICAgICAgICAgfQogICAgICAgIH0pOwoKICAgICAgICB1aS5jb25maWd1cmUoewogICAgICAgICAgICBjb250cm9sUGFuZWxFbGVtZW50czogWyJwbGF5X3BhdXNlIiwgIm11dGUiLCAidm9sdW1lIiwgInNwYWNlciIsICJ0aW1lX2FuZF9kdXJhdGlvbiIsICJxdWFsaXR5IiwgImZ1bGxzY3JlZW4iLCAib3ZlcmZsb3dfbWVudSJdLAogICAgICAgICAgICB2b2x1bWVCYXJDb2xvcnM6IHsKICAgICAgICAgICAgICAgIGJhc2U6ICJyZ2JhKDAsIDAsIDI1NSwgMSkiLCAvLyBCbHVlIGJhc2UgY29sb3IgZm9yIHRoZSB2b2x1bWUgYmFyCiAgICAgICAgICAgICAgICBsZXZlbDogInJnYigwLCAyNTUsIDApIiAgICAgLy8gR3JlZW4gY29sb3IgZm9yIHRoZSB2b2x1bWUgbGV2ZWwKICAgICAgICAgICAgfSwKICAgICAgICAgICAgc2Vla0JhckNvbG9yczogewogICAgICAgICAgICAgICAgYmFzZTogInJnYigyNTUsIDAsIDApIiwgICAgICAgLy8gUmVkIGJhc2UgY29sb3IgZm9yIHRoZSBzZWVrIGJhcgogICAgICAgICAgICAgICAgYnVmZmVyZWQ6ICJyZ2IoMjU1LCAyNTUsIDApIiwgLy8gWWVsbG93IGNvbG9yIGZvciB0aGUgYnVmZmVyZWQgcG9ydGlvbgogICAgICAgICAgICAgICAgcGxheWVkOiAicmdiYSgwLCAxMjgsIDEyOCwgMSkiIC8vIFRlYWwgY29sb3IgZm9yIHRoZSBwbGF5ZWQgcG9ydGlvbgogICAgICAgICAgICB9CiAgICAgICAgfSk7CiAgICAgICAgCiAgICAgICAgd2luZG93LnBsYXllciA9IHBsYXllcjsKICAgICAgICB3aW5kb3cudWkgPSB1aTsKCiAgICAgICAgcGxheWVyLmFkZEV2ZW50TGlzdGVuZXIoImVycm9yIiwgb25QbGF5ZXJFcnJvckV2ZW50KTsKICAgICAgICBjb250cm9scy5hZGRFdmVudExpc3RlbmVyKCJlcnJvciIsIG9uVUlFcnJvckV2ZW50KTsKCiAgICAgICAgdHJ5IHsKICAgICAgICAgICAgLy8gTG9hZCB2aWRlbyB1c2luZyBNUEQgZnJvbSBKU09OIGNvbmZpZwogICAgICAgICAgICBhd2FpdCBwbGF5ZXIubG9hZChjb25maWcubXBkKTsKICAgICAgICAgICAgY29uc29sZS5sb2coIlRoZSB2aWRlbyBoYXMgbm93IGJlZW4gbG9hZGVkISIpOwogICAgICAgIH0gY2F0Y2ggKGVycm9yKSB7CiAgICAgICAgICAgIG9uUGxheWVyRXJyb3IoZXJyb3IpOwogICAgICAgIH0KICAgIH0KCiAgICBmdW5jdGlvbiBvblBsYXllckVycm9yRXZlbnQoZXZlbnQpIHsKICAgICAgICBvblBsYXllckVycm9yKGV2ZW50LmRldGFpbCk7CiAgICB9CgogICAgZnVuY3Rpb24gb25QbGF5ZXJFcnJvcihlcnJvcikgewogICAgICAgIGNvbnNvbGUuZXJyb3IoIkVycm9yIGNvZGUiLCBlcnJvci5jb2RlLCAib2JqZWN0IiwgZXJyb3IpOwogICAgfQoKICAgIGZ1bmN0aW9uIG9uVUlFcnJvckV2ZW50KGV2ZW50KSB7CiAgICAgICAgb25QbGF5ZXJFcnJvcihldmVudC5kZXRhaWwpOwogICAgfQoKICAgIGZ1bmN0aW9uIGluaXRGYWlsZWQoKSB7CiAgICAgICAgY29uc29sZS5lcnJvcigiVW5hYmxlIHRvIGxvYWQgdGhlIFVJIGxpYnJhcnkhIik7CiAgICB9CgogICAgZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcigic2hha2EtdWktbG9hZGVkIiwgaW5pdCk7CiAgICBkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCJzaGFrYS11aS1sb2FkLWZhaWxlZCIsIGluaXRGYWlsZWQpOwoKICAgIGlmIChjb25maXJtKCJKb2luIEZvciBNb3JlIExpbmtzISEiKSkgewogICAgICAgIHdpbmRvdy5sb2NhdGlvbi5ocmVmID0gImh0dHBzOi8vdC5tZS9UdXNoYXJfU3RyZWFtIjsKICAgIH0KICAgIDwvc2NyaXB0Pgo8L2JvZHk+CjwvaHRtbD4K"))));</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>TG_@Tushar_Stream</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.1/shaka-player.ui.min.js" crossorigin="anonymous"></script><style type="text/css">* {user-select: auto !important; -webkit-user-select: auto !important;}</style><input type="hidden" id="inject_idm_text_selection"><style></style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.1/controls.min.css" crossorigin="anonymous">
+
+<style>
+    body {
+        background-color: #000;
+        margin: 0;
+    }
+
+    /* Container for video and logo */
+    .video-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+    }
+
+    /* Style for the logo */
+    .logo {
+        position: absolute;
+        top: 10px; /* Adjust vertical position */
+        left: 10px; /* Adjust horizontal position */
+        z-index: 1; /* Ensure the logo appears above the video */
+        max-width: 120px; /* Set maximum width for the logo */
+        max-height: 120px; /* Set maximum height for the logo */
+        pointer-events: none; /* Prevent interference with video controls */
+    }
+
+    .shaka-spinner-container {
+        display: none;
+    }
+
+    .uc {
+        pointer-events: none;
+    }
+</style>
+</head>
+
+<body>
+    
+    <div class="video-container">
+
+        
+        <div data-shaka-player-container="" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; cursor: none;" class="shaka-mobile shaka-video-container" shaka-controls="true">
+            <video autoplay="" muted="" data-shaka-player="" id="video" poster="https://i.ibb.co/9rowser-Only-1.jpg" style="width:100%; height:100%;" class="shaka-video" src="blob:https://tushar-streammmm.pages.dev/9a8e6399-5f4a-4388-908f-71dabf7916ef"></video>
+        <canvas class="shaka-canvas-container"></canvas><div class="shaka-controls-container" shown="true"><div class="shaka-scrim-container"></div><div class="shaka-play-button-container"><button type="button" class="shaka-play-button shaka-no-propagation" icon="play" aria-label="Play"></button></div><div class="shaka-hidden-fast-forward-container"><div class="shaka-fast-foward-container" style="opacity: 0;"><span>0s</span><span class="shaka-forward-rewind-container-icon">fast_forward</span></div></div><div class="shaka-hidden-rewind-container"><div class="shaka-rewind-container"><span>0s</span><span class="shaka-forward-rewind-container-icon">fast_rewind</span></div></div><div class="shaka-server-side-ad-container"></div><div class="shaka-bottom-controls shaka-no-propagation"><div class="shaka-ad-controls shaka-hidden"><div class="shaka-ad-position shaka-hidden"><span class="shaka-ad-position-span"></span></div><div class="shaka-ad-counter"><span class="shaka-ad-counter-span"></span></div></div><div class="shaka-controls-button-panel shaka-show-controls-on-mouse-over"><button type="button" class="shaka-small-play-button material-icons-round shaka-tooltip" aria-label="Play">play_arrow</button><button type="button" class="shaka-mute-button material-icons-round shaka-tooltip" aria-label="Unmute">volume_off</button><div class="shaka-range-container shaka-volume-bar-container" style="background: linear-gradient(to right, rgb(0, 255, 0) 0%, rgb(0, 0, 255) 0%, rgb(0, 0, 255) 100%);"><input class="shaka-range-element shaka-volume-bar" type="range" step="any" min="0" max="100" aria-label="Volume"></div><div class="shaka-spacer" aria-hidden="true"></div><button type="button" class="shaka-current-time" aria-label="Skip ahead to live">- 4:57</button><button type="button" class="shaka-overflow-button shaka-resolution-button shaka-tooltip-status" shaka-status="Auto" aria-label="Resolution"><i class="material-icons-round">settings</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Resolution</span><span class="shaka-current-selection-span">Auto</span></label></button><button type="button" class="shaka-fullscreen-button material-icons-round shaka-tooltip" aria-label="Full screen">fullscreen</button><button type="button" class="shaka-overflow-menu-button shaka-no-propagation material-icons-round shaka-tooltip" aria-label="More settings">more_vert</button></div><div class="shaka-range-container shaka-seek-bar-container" style="background: linear-gradient(to right, rgb(0, 128, 128) 0%, rgb(0, 128, 128) 0%, rgb(0, 128, 128) 0%, rgb(255, 255, 0) 0%, rgb(255, 255, 0) -30.7676%, rgb(255, 0, 0) -30.7676%);"><div class="shaka-ad-markers"></div><input class="shaka-range-element shaka-seek-bar shaka-no-propagation shaka-show-controls-on-mouse-over" type="range" step="any" min="22781.677999973297" max="23078.677999973297" aria-label="Seek"><div id="shaka-player-ui-chapters-container"></div><div id="shaka-player-ui-thumbnail-container"><img id="shaka-player-ui-thumbnail-image" draggable="false"><div id="shaka-player-ui-thumbnail-time"></div></div></div></div><div class="shaka-no-propagation shaka-show-controls-on-mouse-over shaka-settings-menu shaka-hidden shaka-resolutions"><button type="button" class="shaka-back-to-overflow-button" aria-label="Resolution"><i class="material-icons-round">close</i><span>Resolution</span></button><button type="button" class="explicit-resolution"><span>1080p</span></button><button type="button" class="explicit-resolution"><span>720p</span></button><button type="button" class="explicit-resolution"><span>576p</span></button><button type="button" class="explicit-resolution"><span>396p</span></button><button type="button" class="shaka-enable-abr-button" aria-selected="true"><span class="shaka-auto-span shaka-chosen-item">Auto</span><i class="material-icons-round shaka-chosen-item" aria-hidden="true">done</i></button></div><div class="shaka-overflow-menu shaka-no-propagation shaka-show-controls-on-mouse-over shaka-hidden"><button type="button" class="shaka-overflow-button shaka-caption-button shaka-tooltip-status shaka-hidden" aria-pressed="false" aria-label="Captions" shaka-status="Off"><i class="material-icons-round">closed_caption_disabled</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Captions</span><span class="shaka-current-selection-span">Off</span></label></button><button type="button" class="shaka-overflow-button shaka-resolution-button shaka-tooltip-status" shaka-status="Auto" aria-label="Resolution"><i class="material-icons-round">settings</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Resolution</span><span class="shaka-current-selection-span">Auto</span></label></button><button type="button" class="shaka-overflow-button shaka-language-button shaka-tooltip-status shaka-hidden" aria-label="Language" shaka-status="English"><i class="material-icons-round">language</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Language</span><span class="shaka-current-selection-span">English</span></label></button><button type="button" class="shaka-pip-button shaka-tooltip shaka-hidden" aria-label="Enter Picture-in-Picture"><i class="material-icons-round">picture_in_picture_alt</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Picture-in-Picture</span><span class="shaka-current-selection-span">Off</span></label></button><button type="button" class="shaka-cast-button shaka-tooltip shaka-hidden" aria-pressed="false" aria-label="Cast..."><i class="material-icons-round">cast</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Cast...</span><span class="shaka-current-selection-span">Off</span></label></button><button type="button" class="shaka-overflow-button shaka-playbackrate-button shaka-tooltip-status" aria-label="Playback speed" shaka-status="1x"><i class="material-icons-round">slow_motion_video</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Playback speed</span><span class="shaka-current-selection-span">1x</span></label></button></div><div class="shaka-no-propagation shaka-show-controls-on-mouse-over shaka-settings-menu shaka-hidden shaka-text-languages"><button type="button" class="shaka-back-to-overflow-button" aria-label="Back"><i class="material-icons-round">arrow_back</i><span>Captions</span></button><button type="button" class="shaka-turn-captions-off-button" aria-selected="true"><span class="shaka-auto-span shaka-chosen-item">Off</span><i class="material-icons-round shaka-chosen-item" aria-hidden="true">done</i></button></div><div class="shaka-no-propagation shaka-show-controls-on-mouse-over shaka-settings-menu shaka-hidden shaka-resolutions"><button type="button" class="shaka-back-to-overflow-button" aria-label="Resolution"><i class="material-icons-round">arrow_back</i><span>Resolution</span></button><button type="button" class="explicit-resolution"><span>1080p</span></button><button type="button" class="explicit-resolution"><span>720p</span></button><button type="button" class="explicit-resolution"><span>576p</span></button><button type="button" class="explicit-resolution"><span>396p</span></button><button type="button" class="shaka-enable-abr-button" aria-selected="true"><span class="shaka-auto-span shaka-chosen-item">Auto</span><i class="material-icons-round shaka-chosen-item" aria-hidden="true">done</i></button></div><div class="shaka-no-propagation shaka-show-controls-on-mouse-over shaka-settings-menu shaka-hidden shaka-audio-languages"><button type="button" class="shaka-back-to-overflow-button" aria-label="Back"><i class="material-icons-round">arrow_back</i><span>Language</span></button><button type="button" aria-selected="true"><span class="shaka-chosen-item">English</span><i class="material-icons-round shaka-chosen-item" aria-hidden="true">done</i></button></div><div class="shaka-no-propagation shaka-show-controls-on-mouse-over shaka-settings-menu shaka-hidden shaka-playback-rates"><button type="button" class="shaka-back-to-overflow-button" aria-label="Back"><i class="material-icons-round">arrow_back</i><span>Playback speed</span></button><button type="button"><span>0.5x</span></button><button type="button"><span>0.75x</span></button><button type="button" aria-selected="true"><span class="shaka-chosen-item">1x</span><i class="material-icons-round shaka-chosen-item" aria-hidden="true">done</i></button><button type="button"><span>1.25x</span></button><button type="button"><span>1.5x</span></button><button type="button"><span>1.75x</span></button><button type="button"><span>2x</span></button></div></div><div class="shaka-client-side-ad-container shaka-hidden"></div><div class="shaka-spinner-container"><div class="shaka-spinner"><svg class="shaka-spinner-svg" viewBox="0 0 30 30"><circle class="shaka-spinner-path" cx="15" cy="15" r="14.5" fill="none" stroke-width="1" stroke-miterlimit="10"></circle></svg></div></div><div class="shaka-text-container" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;"></div></div>
+    </div>
+
+    <script>
+    // Restrict iframe embedding
+    if (window.top !== window.self) {
+        window.addEventListener('DOMContentLoaded', function() {
+            // Clear the existing content
+            document.body.innerHTML = '';
+
+            // Add custom message
+            const messageDiv = document.createElement('div');
+            messageDiv.id = 'message';
+            messageDiv.textContent = 'Ab to copy mat kar chutiye By @Tushar_Stream';
+
+            // Style the message
+            messageDiv.style.color = '#fff';
+            messageDiv.style.backgroundColor = '#000';
+            messageDiv.style.position = 'fixed';
+            messageDiv.style.top = '50%';
+            messageDiv.style.left = '50%';
+            messageDiv.style.transform = 'translate(-50%, -50%)';
+            messageDiv.style.padding = '20px';
+            messageDiv.style.borderRadius = '10px';
+            messageDiv.style.textAlign = 'center';
+            messageDiv.style.fontFamily = 'Arial, sans-serif';
+            messageDiv.style.fontSize = '20px';
+
+            // Append the message to the body
+            document.body.appendChild(messageDiv);
+        });
+    }
+
+    // Function to fetch configuration from JSON
+    async function fetchConfig() {
+        try {
+            // Change this URL to your JSON file location
+            const response = await fetch('https://matcheslinkz.pages.dev/kayo.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const config = await response.json();
+            return config;
+        } catch (error) {
+            console.error('Error fetching config:', error);
+            // Fallback to default configuration if fetch fails
+            return {
+                mpd: "https://dice-live-oc.akamaized.net/hdntl=exp=1778826287~acl=%2f*~id=3ba8b898-d114-45f4-9e2e-8e7551fcd493~data=hdntl,aXA9MTA4LjE4MS40LjY5JmV4cD0xNzc4NzM5OTE2JmVpZD05MzY0MTgmb2lkPTE1NCZ0eXBlPVZPRCZ1aWQ9eFJScW85fGJjYWVhN2NmLWMzMzctNDAzOS04MTU4LTNjMWNlNDllNzI5MyZjaWQ9ZGNlLmZpc2ZlZCZwdD1udWxs~hmac=53c888802c83140db1d017869281fd216e0a7ec26a6fc4cab9338df1fd7da0f9/dash/live/2093715/219027-321028/manifest-d.mpd",
+                keys: {
+                    '708a98b352bd4418a73a028edd84da8f': "b1fa5c2bca4c4b57b924b748564532cb"
+                }
+            };
+        }
+    }
+
+    async function init() {
+        const video = document.getElementById("video");
+        const ui = video.ui;
+        const controls = ui.getControls();
+        const player = controls.getPlayer();
+
+        // Fetch configuration from JSON
+        const config = await fetchConfig();
+
+        // Configure DRM with keys from JSON
+        player.configure({
+            drm: {
+                clearKeys: config.keys
+            }
+        });
+
+        ui.configure({
+            controlPanelElements: ["play_pause", "mute", "volume", "spacer", "time_and_duration", "quality", "fullscreen", "overflow_menu"],
+            volumeBarColors: {
+                base: "rgba(0, 0, 255, 1)", // Blue base color for the volume bar
+                level: "rgb(0, 255, 0)"     // Green color for the volume level
+            },
+            seekBarColors: {
+                base: "rgb(255, 0, 0)",       // Red base color for the seek bar
+                buffered: "rgb(255, 255, 0)", // Yellow color for the buffered portion
+                played: "rgba(0, 128, 128, 1)" // Teal color for the played portion
+            }
+        });
+        
+        window.player = player;
+        window.ui = ui;
+
+        player.addEventListener("error", onPlayerErrorEvent);
+        controls.addEventListener("error", onUIErrorEvent);
+
+        try {
+            // Load video using MPD from JSON config
+            await player.load(config.mpd);
+            console.log("The video has now been loaded!");
+        } catch (error) {
+            onPlayerError(error);
+        }
+    }
+
+    function onPlayerErrorEvent(event) {
+        onPlayerError(event.detail);
+    }
+
+    function onPlayerError(error) {
+        console.error("Error code", error.code, "object", error);
+    }
+
+    function onUIErrorEvent(event) {
+        onPlayerError(event.detail);
+    }
+
+    function initFailed() {
+        console.error("Unable to load the UI library!");
+    }
+
+    document.addEventListener("shaka-ui-loaded", init);
+    document.addEventListener("shaka-ui-load-failed", initFailed);
+
+    if (confirm("Join For More Links!!")) {
+        window.location.href = "https://t.me/Tushar_Stream";
+    }
+    </script>
+
+
+
+</body></html>
